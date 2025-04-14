@@ -14,32 +14,12 @@ public sealed class FishingRod : Component
 	{
 		if ( !IsProxy && Input.Pressed("Use") && !isFishing && lastCast > CastCooldown )
 		{
-			var spot = FindNearbyFishingSpot();
-			if ( spot != null )
-			{
-				Log.Info("🎣 Sending cast request to server...");
-				isFishing = true;
-				lastCast = 0;
+			isFishing = true;
+			lastCast = 0;
 
-				var state = GameObject.Components.Get<FishingState>();
-				state?.RequestCastRpc(); // 🚀 sends to server
-			}
-			else
-			{
-				Log.Info("❌ Not near a fishing spot.");
-			}
+			var state = GameObject.Components.Get<FishingState>();
+			state?.RequestCastRpc(GameObject.Transform.Position); // ✅ Called directly
 		}
-	}
-
-	private FishingSpot FindNearbyFishingSpot()
-	{
-		foreach ( var spot in Scene.GetAllComponents<FishingSpot>() )
-		{
-			if ( spot.IsInRange(Transform.Position) )
-				return spot;
-		}
-
-		return null;
 	}
 
 	public void SetCastingComplete()
