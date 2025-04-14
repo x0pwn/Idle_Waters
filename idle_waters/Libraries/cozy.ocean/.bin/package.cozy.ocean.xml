@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>package.cozy.ocean</name>
+    </assembly>
+    <members>
+        <member name="M:Sandbox.GaussianNoiseGenerator.GenerateGaussianPair">
+            <summary>
+            Generates a pair of independent Gaussian-distributed random values using the Box-Muller transform
+            </summary>
+        </member>
+    </members>
+</doc>

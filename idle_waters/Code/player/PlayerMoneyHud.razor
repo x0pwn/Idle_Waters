@@ -1,0 +1,24 @@
+@using Sandbox
+@using Sandbox.UI
+@inherits PanelComponent
+@style "./PlayerMoneyHud.scss"
+
+<root class="money-hud">
+	<div class="money-text">💰 $@Money</div>
+</root>
+
+@code {
+	[Property] public int Money { get; set; }
+
+	protected override int BuildHash() => Money;
+
+	protected override void OnUpdate()
+	{
+		var state = GameObject?.Components.Get<PlayerState>();
+		if ( state != null && state.Money != Money )
+		{
+			Money = state.Money;
+			StateHasChanged();
+		}
+	}
+}
