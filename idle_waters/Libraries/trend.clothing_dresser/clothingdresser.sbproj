@@ -1,0 +1,15 @@
+{
+  "Title": "Clothing Dresser",
+  "Type": "library",
+  "Org": "trend",
+  "Ident": "clothing_dresser",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": null,
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "IsWhitelistDisabled": false,
+  "Metadata": {
+    "CsProjName": ""
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Title": "ocean",
+  "Type": "library",
+  "Org": "cozy",
+  "Ident": "ocean",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": null,
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "IsWhitelistDisabled": false,
+  "Metadata": {}
+}
