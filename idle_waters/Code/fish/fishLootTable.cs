@@ -5,9 +5,9 @@ public static class FishLootTable
 {
     private static List<Fish> fishPool = new()
     {
-        new Fish { Name = "Common Carp", Value = 5, Rarity = 0.6f },
-        new Fish { Name = "Bluegill", Value = 10, Rarity = 0.25f },
-        new Fish { Name = "Golden Trout", Value = 50, Rarity = 0.1f },
+        new Fish { Name = "Smol Carp", Value = 5, Rarity = 0.6f },
+        new Fish { Name = "Medium Carp", Value = 10, Rarity = 0.25f },
+        new Fish { Name = "Large Carp", Value = 50, Rarity = 0.1f },
         new Fish { Name = "Boot", Value = 1, Rarity = 0.05f }
     };
 
