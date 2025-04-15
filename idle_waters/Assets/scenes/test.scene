@@ -473,7 +473,8 @@
               0
             ],
             "Materials": [
-              "materials/dev/reflectivity_30.vmat"
+              "materials/dev/reflectivity_30.vmat",
+              "models/fish/fish.vmat"
             ]
           },
           "OnComponentDestroy": null,
