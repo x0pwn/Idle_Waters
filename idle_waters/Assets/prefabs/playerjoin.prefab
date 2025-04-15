@@ -4,6 +4,7 @@
     "Flags": 0,
     "Name": "playerjoin",
     "Enabled": true,
+    "NetworkMode": 1,
     "Components": [
       {
         "__type": "Sandbox.PlayerController",
@@ -140,7 +141,6 @@
       {
         "__type": "PlayerState",
         "__guid": "dc1074da-fae0-471f-a8fa-2f8f827be6d1",
-        "Money": 0,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -163,17 +163,6 @@
         "ScaleStrategy": "ConsistentHeight",
         "TargetCamera": null,
         "ZIndex": 100
-      },
-      {
-        "__type": "PlayerMoneyHud",
-        "__guid": "f11199c6-f0f1-4957-b7c0-0071161d77e8",
-        "Money": 0,
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null
       }
     ],
     "Children": [

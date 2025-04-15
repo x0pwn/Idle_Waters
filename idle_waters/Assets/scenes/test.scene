@@ -242,7 +242,6 @@
         {
           "__type": "PlayerState",
           "__guid": "534afdc5-d442-4d98-95d6-109ab109fa28",
-          "Money": 0,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -496,7 +495,7 @@
         {
           "__type": "FishingSpot",
           "__guid": "c2813960-f695-472c-a0f9-0f16691cb748",
-          "CastRadius": 550,
+          "CastRadius": 5500,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -575,7 +574,7 @@
       "__guid": "bd39d02e-623b-4f2a-8d68-fa4775adfc24",
       "Flags": 0,
       "Name": "spawn_point1 (2)",
-      "Position": "-63.67619,-48.13842,3.234695",
+      "Position": "-63.67619,-58.56104,3.234695",
       "Enabled": true,
       "Components": [
         {
@@ -592,32 +591,16 @@
       ]
     },
     {
-      "__guid": "c06bec35-e0f0-49f6-b5f6-cc98e91c8b73",
+      "__guid": "ce5929b1-8887-4099-ba52-fddc0a3f87c3",
       "Flags": 0,
-      "Name": "Screen",
-      "Position": "-132.8266,-11.10512,9.479065",
+      "Name": "GameManager",
+      "Position": "164.6599,-19.23572,153.7962",
       "Enabled": true,
+      "NetworkOrphaned": 1,
       "Components": [
         {
-          "__type": "Sandbox.ScreenPanel",
-          "__guid": "5024ffa6-b5fa-448b-b876-9b02c1d284bb",
-          "AutoScreenScale": true,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Opacity": 1,
-          "Scale": 1,
-          "ScaleStrategy": "ConsistentHeight",
-          "TargetCamera": null,
-          "ZIndex": 100
-        },
-        {
-          "__type": "PlayerMoneyHud",
-          "__guid": "55bafd5f-0a48-45b9-9016-342b6d166d64",
-          "Money": 0,
+          "__type": "HudInitializer",
+          "__guid": "84e323c3-ed61-454e-97c2-874cd15fac47",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,

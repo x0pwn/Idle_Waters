@@ -1,7 +1,7 @@
 {
   "Title": "idle_waters",
   "Type": "game",
-  "Org": "local",
+  "Org": "nopwn",
   "Ident": "idle_waters",
   "Schema": 1,
   "IncludeSourceFiles": false,
