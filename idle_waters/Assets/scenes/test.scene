@@ -242,7 +242,6 @@
         {
           "__type": "PlayerState",
           "__guid": "534afdc5-d442-4d98-95d6-109ab109fa28",
-          "Money": 0,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -582,6 +581,26 @@
           "__type": "Sandbox.SpawnPoint",
           "__guid": "48b9a557-e367-433b-b0e2-dd879618f560",
           "Color": "0.8902,0.31765,0.05098,1",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ]
+    },
+    {
+      "__guid": "ce5929b1-8887-4099-ba52-fddc0a3f87c3",
+      "Flags": 0,
+      "Name": "GameManager",
+      "Position": "164.6599,-19.23572,153.7962",
+      "Enabled": true,
+      "NetworkOrphaned": 1,
+      "Components": [
+        {
+          "__type": "HudInitializer",
+          "__guid": "84e323c3-ed61-454e-97c2-874cd15fac47",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,

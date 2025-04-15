@@ -2,22 +2,48 @@
 @using Sandbox.UI
 @inherits PanelComponent
 
-<root class="money-hud">
-	<div class="money-text">💰 $@Money</div>
-</root>
+<div class="money-display">
+    Money: $@Money
+</div>
 
 @code {
-	[Property] public int Money { get; set; }
+    private PlayerState PlayerState { get; set; }
+    private int Money => PlayerState?.Money ?? 0;
 
-	protected override int BuildHash() => Money;
+    protected override async void OnStart()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            var localPlayer = Scene.GetAllComponents<PlayerState>()
+                .FirstOrDefault(ps => ps.Network.OwnerConnection == Connection.Local);
 
-	protected override void OnUpdate()
-	{
-		var state = GameObject?.Components.Get<PlayerState>();
-		if ( state != null && state.Money != Money )
-		{
-			Money = state.Money;
-			StateHasChanged();
-		}
-	}
+            if (localPlayer != null)
+            {
+                PlayerState = localPlayer;
+                Log.Info($"PlayerMoneyHud: Found PlayerState for {Connection.Local.DisplayName}");
+                break;
+            }
+
+            Log.Warning($"PlayerMoneyHud: PlayerState not found, retrying... ({i+1}/10)");
+            await Task.DelayRealtimeSeconds(0.1f);
+        }
+
+        if (PlayerState == null)
+        {
+            Log.Error($"PlayerMoneyHud: Failed to find PlayerState for {Connection.Local.DisplayName}");
+        }
+    }
+
+    protected override void OnUpdate()
+    {
+        if (PlayerState != null)
+        {
+            StateHasChanged();
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        PlayerState = null;
+    }
 }
