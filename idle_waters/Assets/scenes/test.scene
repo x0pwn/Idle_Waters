@@ -69,7 +69,7 @@
           "seed": 12345,
           "spectrumSettings": {
             "scale": 0.6,
-            "windSpeed": 2,
+            "windSpeed": 1,
             "windDirection": 20,
             "fetch": 100000,
             "spreadBlend": 0.75,
