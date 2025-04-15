@@ -69,7 +69,7 @@
           "seed": 12345,
           "spectrumSettings": {
             "scale": 0.6,
-            "windSpeed": 20,
+            "windSpeed": 1,
             "windDirection": 20,
             "fetch": 100000,
             "spreadBlend": 0.75,
@@ -473,7 +473,8 @@
               0
             ],
             "Materials": [
-              "materials/dev/reflectivity_30.vmat"
+              "materials/dev/reflectivity_30.vmat",
+              "models/fish/fish.vmat"
             ]
           },
           "OnComponentDestroy": null,
