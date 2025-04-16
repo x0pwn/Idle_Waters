@@ -218,6 +218,41 @@
         ]
       },
       {
+        "__guid": "2497aecc-512f-4335-bc92-98b63d676b90",
+        "Flags": 0,
+        "Name": "rod",
+        "Position": "10,-11.53497,-11.32319",
+        "Rotation": "-0.1830127,-0.1830127,0.6830127,0.6830127",
+        "Scale": "0.02994987,0.02999812,0.02999812",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "1e3f354e-1d66-46bd-b22a-d802bf84dea2",
+            "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": "models/rod/rod.vmat",
+            "Model": "models/rod/rod.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      },
+      {
         "__guid": "d04b672f-0f89-4b3d-b3cb-a084abbfb750",
         "Flags": 0,
         "Name": "Body",
@@ -262,43 +297,6 @@
             },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
-          }
-        ],
-        "Children": [
-          {
-            "__guid": "2497aecc-512f-4335-bc92-98b63d676b90",
-            "Flags": 0,
-            "Name": "rod",
-            "Position": "10,-22.16335,-11.32319",
-            "Rotation": "-0.1830127,-0.1830127,0.6830127,0.6830127",
-            "Scale": "0.02994987,0.02999812,0.02999812",
-            "Enabled": true,
-            "NetworkMode": 1,
-            "Components": [
-              {
-                "__type": "Sandbox.ModelRenderer",
-                "__guid": "1e3f354e-1d66-46bd-b22a-d802bf84dea2",
-                "BodyGroups": 18446744073709551615,
-                "CreateAttachments": false,
-                "MaterialGroup": null,
-                "MaterialOverride": "models/rod/rod.vmat",
-                "Model": "models/rod/rod.vmdl",
-                "OnComponentDestroy": null,
-                "OnComponentDisabled": null,
-                "OnComponentEnabled": null,
-                "OnComponentFixedUpdate": null,
-                "OnComponentStart": null,
-                "OnComponentUpdate": null,
-                "RenderOptions": {
-                  "GameLayer": true,
-                  "OverlayLayer": false,
-                  "BloomLayer": false,
-                  "AfterUILayer": false
-                },
-                "RenderType": "On",
-                "Tint": "1,1,1,1"
-              }
-            ]
           }
         ]
       }
