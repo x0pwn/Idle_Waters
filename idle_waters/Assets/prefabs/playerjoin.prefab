@@ -26,7 +26,7 @@
         "BodyMass": 500,
         "BodyRadius": 16,
         "BrakePower": 1,
-        "CameraOffset": "256,0,12",
+        "CameraOffset": "100,0,12",
         "ColliderObject": {
           "_type": "gameobject",
           "go": "fe6a8d05-061e-4d39-b265-62c01b0c11cd"
@@ -163,6 +163,16 @@
         "ScaleStrategy": "ConsistentHeight",
         "TargetCamera": null,
         "ZIndex": 100
+      },
+      {
+        "__type": "ClothingDresser",
+        "__guid": "84a892cd-c888-4780-86a8-c379fe92f64f",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -297,6 +307,220 @@
             },
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "3731816a-db8b-4165-9caa-27b8b7b646c5",
+            "Flags": 0,
+            "Name": "Clothing - hair_slickedback",
+            "Tags": "clothing",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "7b5dbbd8-cff6-4206-8b80-ad1a0b2ec798",
+                "AnimationGraph": null,
+                "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": {
+                  "_type": "component",
+                  "component_id": "7fa68d8f-4ab6-4231-84d5-573490c2103a",
+                  "go": "d04b672f-0f89-4b3d-b3cb-a084abbfb750",
+                  "component_type": "SkinnedModelRenderer"
+                },
+                "CreateAttachments": false,
+                "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/citizen_clothes/hair/hair_slickedback/models/hair_slickedback.vmdl",
+                "Morphs": {},
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Parameters": {
+                  "bools": {},
+                  "ints": {},
+                  "floats": {},
+                  "vectors": {},
+                  "rotations": {}
+                },
+                "PlaybackRate": 1,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Sequence": {
+                  "Name": null
+                },
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
+              }
+            ]
+          },
+          {
+            "__guid": "c077e7ff-04aa-4aa5-a30b-aabc056b866d",
+            "Flags": 0,
+            "Name": "Clothing - black_boots",
+            "Tags": "clothing",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "1d43be3f-fbac-4244-b5ab-301198130bcc",
+                "AnimationGraph": null,
+                "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": {
+                  "_type": "component",
+                  "component_id": "7fa68d8f-4ab6-4231-84d5-573490c2103a",
+                  "go": "d04b672f-0f89-4b3d-b3cb-a084abbfb750",
+                  "component_type": "SkinnedModelRenderer"
+                },
+                "CreateAttachments": false,
+                "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/citizen_clothes/shoes/boots/models/black_boots.vmdl",
+                "Morphs": {},
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Parameters": {
+                  "bools": {},
+                  "ints": {},
+                  "floats": {},
+                  "vectors": {},
+                  "rotations": {}
+                },
+                "PlaybackRate": 1,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Sequence": {
+                  "Name": null
+                },
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
+              }
+            ]
+          },
+          {
+            "__guid": "0eeee2c5-ccf2-4e52-8874-dd5174094ef9",
+            "Flags": 0,
+            "Name": "Clothing - shorts",
+            "Tags": "clothing",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "b23d3b27-1a8a-4e7f-bd28-ec7eefd878d5",
+                "AnimationGraph": null,
+                "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": {
+                  "_type": "component",
+                  "component_id": "7fa68d8f-4ab6-4231-84d5-573490c2103a",
+                  "go": "d04b672f-0f89-4b3d-b3cb-a084abbfb750",
+                  "component_type": "SkinnedModelRenderer"
+                },
+                "CreateAttachments": false,
+                "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/citizen_clothes/shorts/shorts/models/shorts.vmdl",
+                "Morphs": {},
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Parameters": {
+                  "bools": {},
+                  "ints": {},
+                  "floats": {},
+                  "vectors": {},
+                  "rotations": {}
+                },
+                "PlaybackRate": 1,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Sequence": {
+                  "Name": null
+                },
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
+              }
+            ]
+          },
+          {
+            "__guid": "bf7558b6-b0cd-4f75-b79d-67c2d7ba82ca",
+            "Flags": 0,
+            "Name": "Clothing - sleeveless_jumper_grey",
+            "Tags": "clothing",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "30123008-8dff-420a-81ea-295e72a7e8ae",
+                "AnimationGraph": null,
+                "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": {
+                  "_type": "component",
+                  "component_id": "7fa68d8f-4ab6-4231-84d5-573490c2103a",
+                  "go": "d04b672f-0f89-4b3d-b3cb-a084abbfb750",
+                  "component_type": "SkinnedModelRenderer"
+                },
+                "CreateAttachments": false,
+                "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/citizen_clothes/jumper/sleeveless_jumper/models/sleeveless_jumper_grey.vmdl",
+                "Morphs": {},
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Parameters": {
+                  "bools": {},
+                  "ints": {},
+                  "floats": {},
+                  "vectors": {},
+                  "rotations": {}
+                },
+                "PlaybackRate": 1,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Sequence": {
+                  "Name": null
+                },
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
+              }
+            ]
           }
         ]
       }
