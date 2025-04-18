@@ -13,11 +13,17 @@ public sealed class FishingState : Component
             return;
         }
 
+        // Update the fishing line to point to the fishing spot
+        var fishingLine = GameObject.Components.Get<FishingLine>();
+        if (fishingLine != null)
+        {
+            fishingLine.StartCasting(spot.Transform.Position);
+        }
+
         await Task.DelaySeconds(5f);
 
         var fish = FishLootTable.GenerateFish();
 
-        // Create a GameObject with FishEntity component, spawning near player
         var fishObject = new GameObject();
         fishObject.Name = $"Fish_{fish.Name}";
         var forward = GameObject.Transform.Rotation.Forward;
@@ -27,7 +33,6 @@ public sealed class FishingState : Component
         fishEntity.FishName = fish.Name;
         fishEntity.FishValue = fish.Value;
 
-        // Spawn on server to broadcast to all clients
         fishObject.Network.Spawn();
 
         var playerState = GameObject.Components.Get<PlayerState>();

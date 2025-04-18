@@ -5,25 +5,58 @@ using Sandbox;
 [Icon("fishing_hook")]
 public sealed class FishingRod : Component
 {
-	[Property] public float CastCooldown { get; set; } = 2f;
+    [Property] public float CastCooldown { get; set; } = 2f;
+    [Property] public GameObject RodTip { get; set; } // References the rod_tip GameObject
 
-	private bool isFishing = false;
-	private TimeSince lastCast;
+    private bool isFishing = false;
+    private TimeSince lastCast;
+    private FishingLine fishingLine;
 
-	protected override void OnUpdate()
-	{
-		if ( !IsProxy && Input.Pressed("Use") && !isFishing && lastCast > CastCooldown )
-		{
-			isFishing = true;
-			lastCast = 0;
+    protected override void OnStart()
+    {
+        if (RodTip != null)
+        {
+            fishingLine = RodTip.Components.Get<FishingLine>();
+            Log.Info("FishingRod: FishingLine found on RodTip: " + (fishingLine != null));
+        }
+        else
+        {
+            Log.Info("FishingRod: RodTip is not assigned!");
+        }
+    }
 
-			var state = GameObject.Components.Get<FishingState>();
-			state?.RequestCastRpc(GameObject.Transform.Position); // ✅ Called directly
-		}
-	}
+    protected override void OnUpdate()
+    {
+        if (!IsProxy && Input.Pressed("Use") && !isFishing && lastCast > CastCooldown)
+        {
+            Log.Info("FishingRod: Initiating cast");
+            isFishing = true;
+            lastCast = 0;
 
-	public void SetCastingComplete()
-	{
-		isFishing = false;
-	}
+            var state = GameObject.Components.Get<FishingState>();
+            state?.RequestCastRpc(GameObject.Transform.Position);
+
+            if (fishingLine != null && RodTip != null)
+            {
+                var forward = Transform.Rotation.Forward;
+                var tempTarget = Transform.Position + forward * 100f;
+                Log.Info("FishingRod: Calling StartCasting with target: " + tempTarget);
+                fishingLine.StartCasting(tempTarget);
+            }
+            else
+            {
+                Log.Info("FishingRod: Cannot call StartCasting - fishingLine: " + (fishingLine == null ? "null" : "set") + ", RodTip: " + (RodTip == null ? "null" : "set"));
+            }
+        }
+    }
+
+    public void SetCastingComplete()
+    {
+        Log.Info("FishingRod: SetCastingComplete called");
+        isFishing = false;
+        if (fishingLine != null)
+        {
+            fishingLine.StopCasting();
+        }
+    }
 }

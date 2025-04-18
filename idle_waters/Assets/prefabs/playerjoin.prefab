@@ -126,7 +126,11 @@
         "OnComponentEnabled": null,
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
-        "OnComponentUpdate": null
+        "OnComponentUpdate": null,
+        "RodTip": {
+          "_type": "gameobject",
+          "go": "af32f590-453a-44b1-af54-e0ec95365a22"
+        }
       },
       {
         "__type": "FishingState",
@@ -259,6 +263,57 @@
             },
             "RenderType": "On",
             "Tint": "1,1,1,1"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "af32f590-453a-44b1-af54-e0ec95365a22",
+            "Flags": 0,
+            "Name": "tip",
+            "Position": "-0.07890535,-2591.732,1294.432",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "ec3d39e9-bdbd-4f10-873b-f83c44f46033",
+                "__enabled": false,
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Model": "models/dev/box.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              },
+              {
+                "__type": "FishingLine",
+                "__guid": "93095d96-c133-42b0-9bee-89110dcaa99a",
+                "LineColor": "1,1,1,1",
+                "LineWidth": 0.5,
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RodTip": {
+                  "_type": "gameobject",
+                  "go": "af32f590-453a-44b1-af54-e0ec95365a22"
+                }
+              }
+            ]
           }
         ]
       },
