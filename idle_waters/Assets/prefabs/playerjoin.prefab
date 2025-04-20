@@ -316,14 +316,14 @@
             "OnComponentUpdate": null,
             "PlayerCamera": {
               "_type": "gameobject",
-              "go": "0aa5cea8-6198-48b4-953f-1c3c33ed4487"
+              "go": "1e88aeee-6393-4c6a-b5ff-ac9b1b7a302f"
             },
-            "PositionOffset": "-9.1,-2.1,-39.9",
+            "PositionOffset": "-10.1,1.2,-38.8",
             "RightHand": {
               "_type": "gameobject",
               "go": "dd6f5819-7fdb-45cf-8ef3-4ce67fbc27e8"
             },
-            "RotationOffset": "0,88.2,34.6"
+            "RotationOffset": "0,88.2,-46.6"
           }
         ],
         "Children": [

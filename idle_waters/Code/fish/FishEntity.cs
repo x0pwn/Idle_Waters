@@ -54,7 +54,19 @@ public sealed class FishEntity : Component
             "Large Carp" => .10f,
             _ => 0.20f
         };
+
+		var materialOveride = FishName switch
+        {
+            "Smol Carp" => "models/newfish/fish1.vmat",
+            "Boot" => "models/fish2/fish1a.vmat",
+            "Medium Carp" => "models/newfish/fish1.vmat",
+            "Large Carp" => "models/fish2/fish1a.vmat",
+            _ => "models/newfish/fish1.vmat"
+        }; 
+        Log.Info($"Fish material override: {materialOveride}");
+        var materialOveridef = Material.Load(materialOveride);
         FishPrefabInstance.Transform.Scale = new Vector3(scale, scale, scale);
+        FishPrefabInstance.Components.Get<ModelRenderer>().MaterialOverride = materialOveridef;
 
         // Start the catch animation
         _ = OnCaught();
