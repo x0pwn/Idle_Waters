@@ -202,7 +202,7 @@
           "BodyGroups": 18446744073709551615,
           "CreateAttachments": false,
           "MaterialGroup": null,
-          "MaterialOverride": "materials/default.vmat",
+          "MaterialOverride": "materials/grass/floor_grass_a.vmat",
           "Model": "models/dev/plane.vmdl",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -1701,7 +1701,7 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "1,1,1,0.08"
+          "Tint": "1,1,1,0.89"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -1767,6 +1767,7 @@
   "Title": "test",
   "Description": null,
   "__references": [
+    "facepunch.floor_grass_a#18648",
     "facepunch.wooden_door_01c#43542",
     "facepunch.wooden_door_frame_double_01b#63898",
     "rustextended.brick_wall_b#43210"
