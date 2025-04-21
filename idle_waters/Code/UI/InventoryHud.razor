@@ -1,0 +1,95 @@
+@using Sandbox
+@using Sandbox.UI
+@using IdleWaters
+@using System.Threading.Tasks
+@inherits PanelComponent
+@attribute [StyleSheet]
+
+<root class="inventory-hud @(Visible ? "visible" : "hidden")" style="position: absolute; top: 10%; left: 10%; background-color: rgba(0,0,0,0.85); padding: 15px; border-radius: 8px; color: white; width: 500px; max-height: 80vh; overflow-y: auto;">
+    @if (Visible)
+    {
+        @if (Inventory == null || Inventory.Items == null || Inventory.Items.Count == 0)
+        {
+            <div class="empty" style="opacity: 0.7; font-style: italic; padding: 10px; font-size: 16px;">No fish caught yet…</div>
+        }
+        else
+        {
+            <div class="fish-container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                @foreach (var obj in Inventory.Items)
+                {
+                    if (obj != null && obj.IsValid())
+                    {
+                        var fish = obj.Components.Get<FishData>();
+                        if (fish != null)
+                        {
+                            <div class="fish-entry" @onclick=@(() => CopyFishName(fish.FishName)) style="background-color: rgba(255,255,255,0.1); border-radius: 6px; padding: 10px; text-align: center; cursor: pointer; width: 100px; margin: 6px; transition: all 0.1s ease; display: flex; flex-direction: column; align-items: center;">
+                                <img src="@fish.FishIcon" alt="@fish.FishName" style="width: 64px; height: 64px; object-fit: contain; border-radius: 5px; margin-bottom: 8px;" />
+                                <div class="fish-name" style="margin-top: 4px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; width: 100%;">@fish.FishName</div>
+                                <div class="fish-value" style="color: #0f0; font-size: 13px; margin-top: 2px; width: 100%;">$@fish.FishValue</div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="fish-entry" style="background-color: rgba(255,255,255,0.1); border-radius: 6px; padding: 10px; text-align: center; width: 100px; margin: 6px; display: flex; flex-direction: column; align-items: center;">
+                                <div style="width: 64px; height: 64px; background-color: #333; border-radius: 5px; margin-bottom: 8px;"></div>
+                                <div class="fish-name" style="margin-top: 4px; font-weight: bold; font-size: 14px; width: 100%;">Unknown Fish</div>
+                                <div class="fish-value" style="color: #999; font-size: 13px; margin-top: 2px; width: 100%;">Value: Unknown</div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        }
+    }
+</root>
+
+@code {
+    private bool Visible;
+
+    // Shortcut to the player's inventory
+    private InventoryComponent Inventory
+        => GameObject.Components.Get<InventoryComponent>();
+
+    protected override void OnUpdate()
+    {
+        base.OnUpdate();
+        if (Input.Pressed("Score"))    // Tab key
+        {
+            Visible = !Visible;
+            
+            if (Visible)
+            {
+                // Force cursor to be visible through code
+                Panel.Style.PointerEvents = PointerEvents.All;
+            }
+            else
+            {
+                // Release cursor control
+                Panel.Style.PointerEvents = PointerEvents.None;
+            }
+        }
+    }
+
+    // Method to copy fish name to clipboard - simplified
+    private void CopyFishName(string fishName)
+    {
+        // Copy to clipboard
+        Clipboard.SetText(fishName);
+        
+        // Display a notification or visual feedback
+        Log.Info($"Copied fish name: {fishName}");
+    }
+
+    // Re‑render whenever Visible flips or the count of items changes
+    protected override int BuildHash()
+    {
+        int hash = Visible.GetHashCode();
+        hash = hash * 31 + (Inventory?.Items.Count ?? 0);
+        return hash;
+    }
+
+    public void ForceRebuild()
+    {
+        StateHasChanged();
+    }
+}

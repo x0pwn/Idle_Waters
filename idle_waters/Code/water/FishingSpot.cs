@@ -1,5 +1,8 @@
 using Sandbox;
 using System;
+using IdleWaters;
+
+namespace IdleWaters;
 
 [Title("Fishing Spot")]
 [Category("Idle Waters")]

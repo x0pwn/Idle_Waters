@@ -5,6 +5,7 @@
     "Name": "fish",
     "Enabled": true,
     "NetworkMode": 1,
+    "OwnerTransfer": 0,
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",

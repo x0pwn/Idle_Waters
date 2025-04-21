@@ -1,5 +1,7 @@
 using Sandbox;
 
+namespace IdleWaters;
+
 [Title("Fishing Line")]
 [Category("Idle Waters")]
 [Icon("show_chart")]

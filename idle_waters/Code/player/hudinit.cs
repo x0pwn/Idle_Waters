@@ -1,34 +1,37 @@
 using Sandbox;
 using Sandbox.UI;
+using IdleWaters;
 using System.Threading.Tasks;
 
+namespace IdleWaters;
 public sealed class HudInitializer : Component
 {
-	private GameObject hudObject;
+    private GameObject hudObject;
 
-	protected override async void OnStart()
-	{
-		// Wait for local connection to exist
-		while (Connection.Local == null)
-			await Task.DelayRealtimeSeconds(0.1f);
+    protected override async void OnStart()
+    {
+        // Wait for client to exist
+        while ( Connection.Local == null )
+            await Task.DelayRealtimeSeconds( 0.1f );
 
-		Log.Info($"[HUD] Creating HUD for {Connection.Local.DisplayName}");
+        hudObject = new GameObject
+        {
+            Name        = "HudRoot",
+            NetworkMode = NetworkMode.Never
+        };
 
-		// ✅ Create GameObject for HUD
-		hudObject = new GameObject();
-		hudObject.Name = "HudRoot";
-		hudObject.NetworkMode = NetworkMode.Never;
+        hudObject.Components.Create<ScreenPanel>();
 
-		// ✅ Attach ScreenPanel component
-		var screenPanel = hudObject.Components.Create<ScreenPanel>();
+        // your existing money display
+        hudObject.Components.Create<PlayerMoneyHud>();
 
-		// ✅ Add your PanelComponent Razor HUD to that GameObject
-		hudObject.Components.Create<PlayerMoneyHud>();
-	}
+        // <-- Add your inventory panel here
+        //hudObject.Components.Create<InventoryHud>();
+    }
 
-	protected override void OnDestroy()
-	{
-		hudObject?.Destroy();
-		hudObject = null;
-	}
+    protected override void OnDestroy()
+    {
+        hudObject?.Destroy();
+        hudObject = null;
+    }
 }

@@ -239,16 +239,6 @@
           "Static": false,
           "Surface": null,
           "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "PlayerState",
-          "__guid": "534afdc5-d442-4d98-95d6-109ab109fa28",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
         }
       ]
     },
@@ -495,9 +485,9 @@
           "SurfaceVelocity": "0,0,0"
         },
         {
-          "__type": "FishingSpot",
-          "__guid": "c2813960-f695-472c-a0f9-0f16691cb748",
-          "CastRadius": 5500,
+          "__type": "IdleWaters.FishingSpot",
+          "__guid": "d65a9155-f107-4ee9-9fd4-487e6dddaf07",
+          "CastRadius": 15000,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -598,19 +588,7 @@
       "Name": "GameManager",
       "Position": "164.6599,-19.23572,153.7962",
       "Enabled": true,
-      "NetworkOrphaned": 1,
-      "Components": [
-        {
-          "__type": "HudInitializer",
-          "__guid": "84e323c3-ed61-454e-97c2-874cd15fac47",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        }
-      ]
+      "NetworkOrphaned": 1
     },
     {
       "__guid": "8c03ff45-33da-48eb-8d9a-723d4fd3c580",

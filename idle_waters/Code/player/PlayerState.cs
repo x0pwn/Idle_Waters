@@ -1,5 +1,7 @@
 using Sandbox;
+using IdleWaters;
 
+namespace IdleWaters;
 public sealed class PlayerState : Component
 {
     [Sync]

@@ -118,8 +118,8 @@
         "StepUpHeight": 18
       },
       {
-        "__type": "FishingRod",
-        "__guid": "51c9ab3f-0f66-4944-a949-de25ef972c0e",
+        "__type": "IdleWaters.FishingRod",
+        "__guid": "a84fe4e3-fb0f-422d-b8ee-a34af0283f49",
         "CastCooldown": 2,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -131,26 +131,6 @@
           "_type": "gameobject",
           "go": "af32f590-453a-44b1-af54-e0ec95365a22"
         }
-      },
-      {
-        "__type": "FishingState",
-        "__guid": "23e48925-b0d3-40f6-a14c-9096794d9df0",
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null
-      },
-      {
-        "__type": "PlayerState",
-        "__guid": "dc1074da-fae0-471f-a8fa-2f8f827be6d1",
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null
       },
       {
         "__type": "Sandbox.ScreenPanel",
@@ -169,8 +149,58 @@
         "ZIndex": 100
       },
       {
+        "__type": "InventoryHud",
+        "__guid": "c15dab0a-b3c0-4f2a-9fc3-eac4f017c33a",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      },
+      {
+        "__type": "IdleWaters.PlayerState",
+        "__guid": "0a5c3f08-1fc4-4544-b581-2a3d6975f8ea",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      },
+      {
+        "__type": "IdleWaters.InventoryComponent",
+        "__guid": "b1691a50-27ee-48ae-9144-35f0d16f9aa6",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      },
+      {
+        "__type": "InventoryHud",
+        "__guid": "1b52d858-2370-48ed-b986-6e9c2fe8903b",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      },
+      {
         "__type": "ClothingDresser",
         "__guid": "84a892cd-c888-4780-86a8-c379fe92f64f",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
+      },
+      {
+        "__type": "IdleWaters.FishingState",
+        "__guid": "d93c66fe-b407-434f-ae03-b3b155785769",
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -305,8 +335,8 @@
             "UseAnimGraph": false
           },
           {
-            "__type": "RodController",
-            "__guid": "335d5f57-9b93-48ef-a5f0-04880e5f2725",
+            "__type": "IdleWaters.RodController",
+            "__guid": "46a7ff7e-60e1-4c93-9ce4-2bf0df3f31c1",
             "FollowCamera": true,
             "MovementTolerance": 0.5,
             "OnComponentDestroy": null,
@@ -323,7 +353,7 @@
             "PositionSmoothSpeed": 10,
             "RightHand": {
               "_type": "gameobject",
-              "go": "dd6f5819-7fdb-45cf-8ef3-4ce67fbc27e8"
+              "go": "765f8caa-d49d-4489-8853-76932c6b99f7"
             },
             "RotationOffset": "0,88.2,-46.6",
             "RotationSmoothSpeed": 8,
@@ -363,8 +393,8 @@
                 "Tint": "1,1,1,1"
               },
               {
-                "__type": "FishingLine",
-                "__guid": "93095d96-c133-42b0-9bee-89110dcaa99a",
+                "__type": "IdleWaters.FishingLine",
+                "__guid": "8fefed1c-e0ba-426b-9b90-238a80dec06f",
                 "LineColor": "1,1,1,1",
                 "LineWidth": 0.5,
                 "OnComponentDestroy": null,

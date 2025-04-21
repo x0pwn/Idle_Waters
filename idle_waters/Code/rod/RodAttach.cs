@@ -1,192 +1,142 @@
+// File: Code/Player/RodController.cs
 using Sandbox;
-using System.Linq; 
+using System.Linq;
 
-[Title("Rod Controller")]
-[Category("Idle Waters")]
-[Icon("fishing_hook")]
-public sealed class RodController : Component
+namespace IdleWaters
 {
-    [Property] public GameObject PlayerCamera { get; set; }
-    [Property] public GameObject RightHand { get; set; }
-    
-    [Property] public Vector3 PositionOffset { get; set; } = new Vector3(-9, -2, -39);
-    [Property] public Angles RotationOffset { get; set; } = new Angles(0, 88, 34);
-    
-    [Property] public bool FollowCamera { get; set; } = true;
-
-    [Property, Group("Smoothing")] 
-    public float PositionSmoothSpeed { get; set; } = 10.0f;
-
-    [Property, Group("Smoothing")] 
-    public float RotationSmoothSpeed { get; set; } = 8.0f;
-
-    [Property, Group("Smoothing")] 
-    public float MovementTolerance { get; set; } = 0.5f;
-
-    [Property, Group("Smoothing")]
-    public float RotationTolerance { get; set; } = 1.0f;
-
-    private Vector3 targetPosition;
-    private Rotation targetRotation;
-    
-    private bool _rodEquipped = true;
-
-    private Vector3 lastUsedHandPosition;
-    private Rotation lastUsedCameraRotation;
-    private bool hasInitializedPosition = false;
-    
-    protected override void OnStart()
+    [Title("Rod Controller")]
+    [Category("Idle Waters")]
+    [Icon("fishing_hook")]
+    public sealed class RodController : Component
     {
-        if (PlayerCamera == null)
-        {
-            var cameras = Scene.GetAllObjects(true);
-            foreach (var go in cameras)
-            {
-                if (go.Name.Contains("camera") || go.Components.Get<CameraComponent>() != null)
-                {
-                    PlayerCamera = go;
-                    break;
-                }
-            }
-                
-            if (PlayerCamera == null)
-                Log.Warning("Rod Controller: Camera not found!");
-        }
+        [Property] public GameObject PlayerCamera { get; set; }
+        [Property] public GameObject RightHand { get; set; }
         
-        if (RightHand == null)
+        [Property] public Vector3 PositionOffset { get; set; } = new Vector3(-9, -2, -39);
+        [Property] public Angles RotationOffset { get; set; } = new Angles(0, 88, 34);
+        
+        [Property] public bool FollowCamera { get; set; } = true;
+
+        [Property, Group("Smoothing")] 
+        public float PositionSmoothSpeed { get; set; } = 10.0f;
+
+        [Property, Group("Smoothing")] 
+        public float RotationSmoothSpeed { get; set; } = 8.0f;
+
+        [Property, Group("Smoothing")] 
+        public float MovementTolerance { get; set; } = 0.5f;
+
+        [Property, Group("Smoothing")]
+        public float RotationTolerance { get; set; } = 1.0f;
+
+        private Vector3 targetPosition;
+        private Rotation targetRotation;
+        
+        private bool _rodEquipped = true;
+
+        private Vector3 lastUsedHandPosition;
+        private Rotation lastUsedCameraRotation;
+        private bool hasInitializedPosition = false;
+        
+        protected override void OnStart()
         {
-            var players = Scene.GetAllObjects(true);
-            GameObject player = null;
-            
-            foreach (var go in players)
+            // Find the player's camera if not assigned
+            if (PlayerCamera == null)
             {
-                if (go.Components.Get<PlayerController>() != null)
-                {
-                    player = go;
-                    break;
-                }
+                var camObj = Scene.GetAllObjects(true)
+                                 .FirstOrDefault(go => go.Components.Get<CameraComponent>() != null 
+                                                    || go.Name.ToLower().Contains("camera"));
+                PlayerCamera = camObj;
+                if (PlayerCamera == null)
+                    Log.Warning("RodController: Camera not found!");
             }
             
-            if (player != null)
+            // Attach RightHand to the correct bone if not assigned at edit time
+            if (RightHand != null && RightHand.Parent == null)
             {
-                SkinnedModelRenderer playerModel = null;
-                var models = player.Components.GetAll<SkinnedModelRenderer>();
-                
-                foreach (var model in models)
+                var playerPawn = Scene.GetAllObjects(true)
+                                      .FirstOrDefault(go => go.Components.Get<PlayerController>() != null);
+                if (playerPawn != null)
                 {
-                    if (model.Model != null && model.Model.ResourcePath.Contains("citizen"))
+                    var skinned = playerPawn.Components
+                                              .GetAll<SkinnedModelRenderer>()
+                                              .FirstOrDefault(m => m.Model?.ResourcePath.Contains("citizen") == true);
+                    if (skinned != null)
                     {
-                        playerModel = model;
-                        break;
+                        RightHand.SetParent(skinned.GameObject);
+                        RightHand.Transform.LocalPosition = new Vector3(8, 0, 0);
+                        Log.Info("RodController: Hand attachment point created");
                     }
                 }
-                
-                if (playerModel != null)
-                {
-                    RightHand.SetParent(playerModel.GameObject);
-                    
-                    RightHand.Transform.LocalPosition = new Vector3(8, 0, 0);
-                    Log.Info("Created hand attachment point");
-                }
             }
         }
-    }
-    
-    protected override void OnUpdate()
-    {
-        if (!_rodEquipped) return;
         
-        if (RightHand != null && PlayerCamera != null)
+        protected override void OnUpdate()
         {
-            var handPosition = RightHand.Transform.Position;
-            var cameraRotation = PlayerCamera.Transform.Rotation;
-            
-            // On first update, initialize positions
+            if (!_rodEquipped) return;
+            if (RightHand == null || PlayerCamera == null) return;
+
+            var handPos = RightHand.Transform.Position;
+            var camRot  = PlayerCamera.Transform.Rotation;
+
             if (!hasInitializedPosition)
             {
-                lastUsedHandPosition = handPosition;
-                lastUsedCameraRotation = cameraRotation;
+                lastUsedHandPosition  = handPos;
+                lastUsedCameraRotation = camRot;
                 hasInitializedPosition = true;
             }
-            
-            // Check if movement exceeds tolerance
-            bool updatePosition = (handPosition - lastUsedHandPosition).Length > MovementTolerance;
-            
-            // Check if rotation exceeds tolerance (angle difference)
-            Rotation diff = cameraRotation.Inverse * lastUsedCameraRotation;
-            Angles eulerAngles = diff.Angles();
-            // Fix: Create a Vector3 from the individual Angles components
-            Vector3 angles = new Vector3(eulerAngles.pitch, eulerAngles.yaw, eulerAngles.roll);
-            float rotDiff = angles.Length; // Magnitude of angular difference
 
-            bool updateRotation = rotDiff > RotationTolerance;
-            
-            // Only update if movement or rotation exceeds tolerance
-            if (updatePosition || updateRotation)
+            bool movedEnough = (handPos - lastUsedHandPosition).Length > MovementTolerance;
+            var diffRot = camRot.Inverse * lastUsedCameraRotation;
+            var diffAngles = diffRot.Angles();
+            float angleMag = new Vector3(diffAngles.pitch, diffAngles.yaw, diffAngles.roll).Length;
+            bool rotatedEnough = angleMag > RotationTolerance;
+
+            if (movedEnough || rotatedEnough)
             {
-                // Update the values we use for calculating
-                lastUsedHandPosition = handPosition;
-                lastUsedCameraRotation = cameraRotation;
-                
-                // Proceed with normal calculation using these values
-                var cameraForward = lastUsedCameraRotation.Forward;
-                
-                var horizontalForward = cameraForward;
-                horizontalForward.z *= 0.3f; 
-                horizontalForward = horizontalForward.Normal;
-                
-                var targetRot = Rotation.LookAt(horizontalForward, Vector3.Up);
-                // Fix: Pass the RotationOffset directly instead of creating a Vector3
-                targetRot *= Rotation.From(RotationOffset);
-                
-                var handleOffset = new Vector3(-5, 0, 0);
-                var rotatedHandleOffset = targetRot * handleOffset;
-                
-                // Calculate the target position
-                targetPosition = lastUsedHandPosition - rotatedHandleOffset + targetRot * PositionOffset;
-                targetRotation = targetRot;
+                lastUsedHandPosition   = handPos;
+                lastUsedCameraRotation = camRot;
+
+                var forward = camRot.Forward;
+                forward.z *= 0.3f;
+                forward = forward.Normal;
+
+                var baseRot = Rotation.LookAt(forward, Vector3.Up) * Rotation.From(RotationOffset);
+                var handleOffset = baseRot * new Vector3(-5, 0, 0);
+
+                targetRotation = baseRot;
+                targetPosition = handPos - handleOffset + baseRot * PositionOffset;
             }
-            
-            // Rest of smoothing code stays the same
-            float deltaTime = Time.Delta;
-            
-            // Smoothly move toward target position
-            Vector3 smoothedPosition = Vector3.Lerp(
-                GameObject.Transform.Position, 
-                targetPosition, 
-                deltaTime * PositionSmoothSpeed
+
+            var dt = Time.Delta;
+            GameObject.Transform.Position = Vector3.Lerp(
+                GameObject.Transform.Position,
+                targetPosition,
+                dt * PositionSmoothSpeed
             );
-            
-            // Smoothly rotate toward target rotation
-            Rotation smoothedRotation = Rotation.Slerp(
+            GameObject.Transform.Rotation = Rotation.Slerp(
                 GameObject.Transform.Rotation,
                 targetRotation,
-                deltaTime * RotationSmoothSpeed
+                dt * RotationSmoothSpeed
             );
-            
-            // Apply the smoothed values
-            GameObject.Transform.Position = smoothedPosition;
-            GameObject.Transform.Rotation = smoothedRotation;
         }
-    }
-    
-    public void EquipRod()
-    {
-        GameObject.Enabled = true;
-        _rodEquipped = true;
-    }
-    
-    public void UnequipRod()
-    {
-        GameObject.Enabled = false;
-        _rodEquipped = false;
-    }
-    
-    public void ToggleRod()
-    {
-        if (_rodEquipped)
-            UnequipRod();
-        else
-            EquipRod();
+        
+        public void EquipRod()
+        {
+            GameObject.Enabled = true;
+            _rodEquipped = true;
+        }
+        
+        public void UnequipRod()
+        {
+            GameObject.Enabled = false;
+            _rodEquipped = false;
+        }
+        
+        public void ToggleRod()
+        {
+            if (_rodEquipped) UnequipRod();
+            else EquipRod();
+        }
     }
 }

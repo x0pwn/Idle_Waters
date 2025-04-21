@@ -1,5 +1,6 @@
 using Sandbox;
 using System.Collections.Generic;
+using IdleWaters;
 
 public static class FishLootTable
 {

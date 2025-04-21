@@ -1,5 +1,7 @@
 using Sandbox;
 using System.Threading.Tasks;
+using IdleWaters;
+
 
 [Title("Fish Entity")]
 [Category("Idle Waters")]
@@ -8,6 +10,7 @@ public sealed class FishEntity : Component
 {
     [Property] public string FishName { get; set; }
     [Property] public int FishValue { get; set; }
+	[Property] public string FishIcon {get; set; } = "models/fish2/fish1a.png";
     private GameObject FishPrefabInstance { get; set; }
 
     protected override void OnStart()
@@ -115,9 +118,10 @@ public sealed class FishEntity : Component
 		// Move upward
 		FishPrefabInstance.Transform.LocalPosition += Vector3.Up * 50f;
 
-		// Destroy after animation
 		await Task.DelaySeconds(2f);
-		GameObject.Destroy();
+		if ( FishPrefabInstance.IsValid() )
+        	FishPrefabInstance.Destroy();
+		this.Enabled = false;
 	}
 
     protected override void OnDestroy()
