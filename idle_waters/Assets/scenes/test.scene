@@ -342,162 +342,6 @@
       ]
     },
     {
-      "__guid": "0fe97329-a326-4ece-bc11-858394288a30",
-      "Flags": 0,
-      "Name": "Box",
-      "Position": "688.84,1.833984,-25.62719",
-      "Tags": "water",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.MeshComponent",
-          "__guid": "56714145-ee29-4e05-a27f-440c06c4cb82",
-          "Collision": "Mesh",
-          "Color": "0,0.09804,0.15686,1",
-          "Friction": null,
-          "HideInGame": false,
-          "IsTrigger": false,
-          "Mesh": {
-            "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
-            "Position": "688.84,1.833984,-25.62719",
-            "Rotation": "0,0,0,1",
-            "Positions": [
-              "-439.0497,-471.5571,0.8878703",
-              "439.0497,-471.5571,0.8878703",
-              "439.0497,471.5571,0.8878703",
-              "-439.0497,471.5571,0.8878703",
-              "-439.0497,471.5571,-0.8878703",
-              "439.0497,471.5571,-0.8878703",
-              "439.0497,-471.5571,-0.8878703",
-              "-439.0497,-471.5571,-0.8878703"
-            ],
-            "TextureCoord": [
-              "9.430076,3.68404",
-              "2.569923,0.9930635",
-              "9.430076,-3.68404",
-              "-2.68404,0.9930634",
-              "2.569923,-3.68404",
-              "-8.430076,0.9930635",
-              "2.569923,3.68404",
-              "-3.68404,0.9930634",
-              "9.430076,-3.68404",
-              "-1.569924,1.006937",
-              "9.430076,3.68404",
-              "4.68404,1.006936",
-              "2.569923,3.68404",
-              "9.430076,1.006937",
-              "2.569923,-3.68404",
-              "3.68404,1.006936",
-              "3.68404,0.9930634",
-              "2.569923,1.006937",
-              "-3.68404,1.006936",
-              "-1.569924,0.9930635",
-              "-2.68404,1.006936",
-              "9.430076,0.9930635",
-              "4.68404,0.9930634",
-              "-8.430076,1.006937"
-            ],
-            "TextureUAxis": [
-              "1,0,0",
-              "1,0,-0",
-              "0,-1,0",
-              "0,1,0",
-              "-1,0,0",
-              "1,-0,0"
-            ],
-            "TextureVAxis": [
-              "0,-1,0",
-              "0,-1,0",
-              "0,0,-1",
-              "-0,0,-1",
-              "0,0,-1",
-              "-0,0,-1"
-            ],
-            "TextureScale": [
-              "0.25,0.25",
-              "0.25,0.25",
-              "0.25,0.25",
-              "0.25,0.25",
-              "0.25,0.25",
-              "0.25,0.25"
-            ],
-            "TextureOffset": [
-              "316.6395,7.335999",
-              "316.6395,7.335876",
-              "7.335876,409.4912",
-              "504.6642,409.4912",
-              "195.3602,409.4912",
-              "316.6393,409.4912"
-            ],
-            "MaterialIndex": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "EdgeFlags": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "Materials": [
-              "materials/dev/reflectivity_30.vmat",
-              "models/fish/fish.vmat"
-            ]
-          },
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "RenderType": "On",
-          "SmoothingAngle": 40,
-          "Static": true,
-          "Surface": null,
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "IdleWaters.FishingSpot",
-          "__guid": "d65a9155-f107-4ee9-9fd4-487e6dddaf07",
-          "CastRadius": 15000,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        }
-      ]
-    },
-    {
       "__guid": "07cbce52-c800-4a0e-875c-d9ec3e1e71b1",
       "Flags": 0,
       "Name": "spawn",
@@ -1824,6 +1668,72 @@
           "OnPropTakeDamage": null,
           "StartAsleep": false,
           "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b2100815-bedc-4472-865e-4f11bbb87bff",
+      "Flags": 0,
+      "Name": "Cube",
+      "Position": "980.0171,-9.880615,-653.0989",
+      "Scale": "29.1382,23.05056,24.26759",
+      "Tags": "water",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "965ef03a-e4b9-4d88-a716-95c381cc2137",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/water/water_pond_a.vmat",
+          "Model": "models/dev/box.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,0.08"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "47ac7758-ff3c-4e60-ba03-32bb3ce01cd4",
+          "Center": "0,0,0.9344215",
+          "Friction": null,
+          "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Scale": "50,50,51.86876",
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "IdleWaters.FishingSpot",
+          "__guid": "a0830743-be5c-4060-95ed-45d0a175ca90",
+          "CastRadius": 1500,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ]
     }

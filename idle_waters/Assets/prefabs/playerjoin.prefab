@@ -207,6 +207,18 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null
+      },
+      {
+        "__type": "Sandbox.Movement.MoveModeSwim",
+        "__guid": "c2ab9a05-1fd3-408b-bdd2-a1a4ec001482",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Priority": 10,
+        "SwimLevel": 0.7
       }
     ],
     "Children": [
@@ -349,7 +361,7 @@
               "_type": "gameobject",
               "go": "1e88aeee-6393-4c6a-b5ff-ac9b1b7a302f"
             },
-            "PositionOffset": "-10.1,1.2,-38.8",
+            "PositionOffset": "-4,14,-46.6",
             "PositionSmoothSpeed": 10,
             "RightHand": {
               "_type": "gameobject",
