@@ -83,14 +83,14 @@
             
             if (Visible)
             {
-                // Reset inventory reference to make sure we get the latest one
+                // Force reset inventory reference to make sure we get the latest one
                 _inventory = null;
                 
                 // Log inventory details for debugging
                 var inv = Inventory;
                 if (inv != null)
                 {
-                    Log.Info($"INVENTORY - Player: {Connection.Local.DisplayName}, Items: {inv.Items.Count}");
+                    Log.Info($"INVENTORY - Player: {Connection.Local.DisplayName} (ID: {Connection.Local.Id}), Items: {inv.Items.Count}");
                     foreach (var item in inv.Items)
                     {
                         var fishData = item.Components.Get<FishData>();
@@ -98,8 +98,15 @@
                         {
                             Log.Info($"  - {fishData.FishName} (${fishData.FishValue})");
                         }
+                        else
+                        {
+                            Log.Warning($"  - Found item without FishData: {item.Name}");
+                        }
                     }
                 }
+                
+                // Force rebuild explicitly
+                ForceRebuild();
                 
                 // Force cursor to be visible through code
                 Panel.Style.PointerEvents = PointerEvents.All;
@@ -132,6 +139,7 @@
 
     public void ForceRebuild()
     {
+        Log.Info($"Forcing rebuild of inventory HUD for player: {Connection.Local.DisplayName}");
         StateHasChanged();
     }
 }

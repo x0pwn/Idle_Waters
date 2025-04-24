@@ -1,5 +1,7 @@
 // File: Code/Player/FishingState.cs
 using Sandbox;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IdleWaters
@@ -7,7 +9,7 @@ namespace IdleWaters
     public sealed class FishingState : Component
     {
         [Rpc.Host]
-        public async void RequestCastRpc(Vector3 playerPosition)
+        public async void RequestCastRpc(Vector3 playerPosition, Guid clientId)
         {
             // 1) find the spot
             var spot = FindNearbyFishingSpot(playerPosition);
@@ -44,9 +46,25 @@ namespace IdleWaters
             ent.FishValue = info.Value;
             ent.FishIcon  = data.FishIcon;
 
-            // 5) spawn it *as* the caller, giving them ownership
+             // 5) spawn it with the client who caught it as the owner
             fishObject.Network.SetOwnerTransfer(OwnerTransfer.Takeover);
-            bool success = fishObject.NetworkSpawn(Rpc.Caller);
+            
+            // Find the client connection by ID instead of using Rpc.Caller
+            var clientConnection = Connection.All.FirstOrDefault(c => c.Id == clientId);
+            
+            // Log for debugging
+            if (clientConnection != null)
+            {
+                Log.Info($"Found connection for client: {clientConnection.DisplayName} (ID: {clientConnection.Id})");
+            }
+            else
+            {
+                Log.Warning($"Could not find connection for client ID: {clientId}");
+            }
+            
+            // Use the client connection instead of Rpc.Caller
+            bool success = fishObject.NetworkSpawn(clientConnection ?? Rpc.Caller);
+            
             if (!success)
             {
                 Log.Warning("Failed to spawn fish for client");
@@ -56,15 +74,52 @@ namespace IdleWaters
             // small delay so the network fully syncs before we operate on it
             await Task.DelaySeconds(0.5f);
 
-            // 6) now that this component lives on the pawn,
-            //    GameObject.Components.Get<InventoryComponent>() finds the right inventory
-            var inv = GameObject.Components.Get<InventoryComponent>();
-            if (inv == null || !inv.AddItem(fishObject))
+            // 6) Find the specific player's inventory who caught the fish, using the caller's player object
+            Log.Info($"Finding inventory for client ID: {clientId}");
+            
+            var playerObjects = Scene.GetAllObjects(true)
+                .Where(go => go.Components.Get<InventoryComponent>() != null)
+                .ToList();
+            
+            // Additional logging to diagnose issues
+            Log.Info($"Found {playerObjects.Count} objects with inventory components");
+            foreach (var obj in playerObjects)
             {
-                Log.Warning("AddItem failed");
+                Log.Info($"Object: {obj.Name}, Owner ID: {obj.Network.OwnerId}, Owner Name: {obj.Network.OwnerConnection?.DisplayName ?? "None"}");
+            }
+            
+            // Use the connection's ID for precise matching instead of display name
+            var playerObject = playerObjects.FirstOrDefault(go => 
+                go.Network.OwnerId == clientId);
+            
+            if (playerObject != null)
+            {
+                Log.Info($"FOUND correct inventory for player: {clientId}");
+                Log.Info($"Selected Player Object: {playerObject.Name}, Owner ID: {playerObject.Network.OwnerId}");
+                
+                var inventory = playerObject.Components.Get<InventoryComponent>();
+                if (inventory != null)
+                {
+                    if (!inventory.AddItem(fishObject))
+                    {
+                        Log.Warning($"AddItem failed for player {Rpc.Caller.DisplayName}");
+                    }
+                    else
+                    {
+                        Log.Info($"Successfully added fish to {Rpc.Caller.DisplayName}'s inventory");
+                    }
+                }
+                else
+                {
+                    Log.Warning($"No inventory component found on player object for {Rpc.Caller.DisplayName}");
+                }
+            }
+            else
+            {
+                Log.Warning($"Could not find player object for {Rpc.Caller.DisplayName}");
             }
 
-            // 7) notify the client’s HUD that they caught something
+            // 7) notify the client's HUD that they caught something
             NotifyCatchRpc(info.Name, info.Value);
         }
 

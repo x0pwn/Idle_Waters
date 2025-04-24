@@ -1,19 +1,17 @@
-// File: Code/Player/InventoryComponent.cs
 using Sandbox;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdleWaters
 {
     public class InventoryComponent : Component
     {
-        [Sync]
+        [Sync(SyncFlags.FromHost)]
         private NetList<GameObject> _items { get; set; } = new();
 
-        /// <summary>Only the host (in single‑player) or the owner sees their fish list.</summary>
-        public IReadOnlyList<GameObject> Items
-            => Networking.IsHost || !GameObject.IsProxy
-               ? _items
-               : new List<GameObject>();
+        /// <summary>All connected clients should see the items in their inventory.</summary>
+        public IReadOnlyList<GameObject> Items => _items;
 
         /// <summary>
         /// Host‑only: hide the fish’s visuals and move it into our synced list.
@@ -22,26 +20,48 @@ namespace IdleWaters
         public bool AddItem(GameObject fish)
         {
             if (!Networking.IsHost || _items.Contains(fish))
-                return false;
-
-            // owner check: only add if this pawn’s owner matches the fish’s owner
-            if (GameObject.Network.OwnerId != fish.Network.OwnerId)
             {
-                Log.Warning("Tried to add fish to another player's inventory!");
+                Log.Warning($"Fish already in inventory: {fish.Name}");
                 return false;
             }
 
-            // hide its model and detach
+            Log.Info($"Fish owner ID: {fish.Network.OwnerId}, Inventory owner ID: {GameObject.Network.OwnerId}, Caller ID: {Rpc.Caller?.Id}");
+            
             foreach (var r in fish.Components.GetAll<ModelRenderer>())
                 r.Enabled = false;
 
             fish.SetParent(null);
 
-            // add into the list (syncs to the client)
+            int beforeCount = _items.Count;
             _items.Add(fish);
+            int afterCount = _items.Count;
+            
+            Log.Info($"NetList before add: {beforeCount}, after add: {afterCount}");
+            
+            if (afterCount > beforeCount)
+            {
+                Log.Info($"Item successfully added to NetList");
+            }
+            else
+            {
+                Log.Warning($"Failed to add item to NetList - item may have been rejected");
+                
+                var tempList = new NetList<GameObject>();
+                foreach (var item in _items)
+                    tempList.Add(item);
+                tempList.Add(fish);
+                _items = tempList;
+                
+                Log.Info($"Created new NetList with {_items.Count} items");
+            }
+            
+            LogInventoryContents("After AddItem");
 
-            // tell the owner we’ve updated their list
-            NotifyInventoryChanged();
+            NotifyInventoryChangedBroadcast(GameObject.Network.OwnerId);
+
+            var ownerName = GameObject.Network.OwnerConnection?.DisplayName ?? "Unknown";
+            Log.Info($"Successfully added fish to {ownerName}'s inventory");
+
             return true;
         }
 
@@ -54,13 +74,55 @@ namespace IdleWaters
             AddItem(fish);
         }
 
-        /// <summary>
-        /// Host→Owner RPC: runs on the owning client so they can refresh their HUD.
-        /// </summary>
-        [Rpc.Owner]
-        public void NotifyInventoryChanged()
+        [Rpc.Broadcast]
+        public void NotifyInventoryChangedBroadcast(Guid targetClientId)
         {
-            GameObject.Components.Get<InventoryHud>()?.ForceRebuild();
+            if (Connection.Local.Id != targetClientId)
+                return;
+
+            Log.Info($"Updating inventory for client: {Connection.Local.DisplayName} ({targetClientId})");
+
+            var hud = Scene.GetAllComponents<InventoryHud>().FirstOrDefault();
+            if (hud != null)
+            {
+                Log.Info($"Found HUD, forcing rebuild for {Connection.Local.DisplayName}");
+                hud.ForceRebuild();
+            }
+            else
+            {
+                Log.Warning($"Could not find any InventoryHud component for {Connection.Local.DisplayName}!");
+            }
+        }
+
+        public void LogInventoryContents(string context = "")
+        {
+            Log.Info($"[{context}] Inventory for {GameObject.Network.OwnerConnection?.DisplayName ?? "Unknown"} (Items: {_items.Count}):");
+            foreach (var item in _items)
+            {
+                var fishData = item.Components.Get<FishData>();
+                if (fishData != null)
+                {
+                    Log.Info($"  - {fishData.FishName} (${fishData.FishValue})");
+                }
+                else
+                {
+                    Log.Warning($"  - Item without FishData: {item.Name}");
+                }
+            }
+        }
+
+        protected override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            if (!Networking.IsHost && Time.Now % 5 < 0.01f)
+            {
+                Log.Info($"CLIENT {Connection.Local.DisplayName} Inventory Items: {_items.Count}");
+                if (_items.Count > 0)
+                {
+                    LogInventoryContents("Client periodic check");
+                }
+            }
         }
     }
 }

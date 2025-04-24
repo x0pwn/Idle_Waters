@@ -1,6 +1,5 @@
-// File: Code/Player/FishingRod.cs
 using Sandbox;
-using IdleWaters;  // <— bring in the namespace where FishingState lives
+using IdleWaters;  
 
 namespace IdleWaters
 {
@@ -37,9 +36,8 @@ namespace IdleWaters
                 isFishing = true;
                 lastCast = 0;
 
-                // Now FishingState is in the same namespace, so this resolves
                 var state = GameObject.Components.Get<FishingState>();
-                state?.RequestCastRpc(GameObject.Transform.Position);
+                state?.RequestCastRpc(GameObject.Transform.Position, Connection.Local.Id);
 
                 if (fishingLine != null && RodTip != null)
                 {
