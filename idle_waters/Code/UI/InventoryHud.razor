@@ -5,7 +5,7 @@
 @inherits PanelComponent
 @attribute [StyleSheet]
 
-<root class="inventory-hud @(Visible ? "visible" : "hidden")" style="position: absolute; top: 10%; left: 10%; background-color: rgba(0,0,0,0.85); padding: 15px; border-radius: 8px; color: white; width: 500px; max-height: 80vh; overflow-y: auto;">
+<root class="inventory-hud @(Visible ? "visible" : "hidden")" style="position: absolute; top: 10%; left: 10%; background-color: rgba(0,0,0,0.85); padding: 15px; border-radius: 8px; color: white; width: 500px; max-height: 80vh;">
     @if (Visible)
     {
         @if (Inventory == null || Inventory.Items == null || Inventory.Items.Count == 0)
