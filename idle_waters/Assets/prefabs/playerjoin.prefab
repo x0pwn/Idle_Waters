@@ -398,7 +398,13 @@
               {
                 "__type": "IdleWaters.FishingLine",
                 "__guid": "8fefed1c-e0ba-426b-9b90-238a80dec06f",
+                "BobAmount": 0.3,
+                "CastArcHeight": 20,
+                "CastDistance": 1.5,
+                "CastDuration": 1.0000001,
                 "LineColor": "1,1,1,1",
+                "LineSag": 0.5,
+                "LineSegments": 10,
                 "LineWidth": 0.5,
                 "OnComponentDestroy": null,
                 "OnComponentDisabled": null,

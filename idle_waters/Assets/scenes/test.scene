@@ -1701,12 +1701,12 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "1,1,1,0.89"
+          "Tint": "0,0.09804,0.15686,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
           "__guid": "47ac7758-ff3c-4e60-ba03-32bb3ce01cd4",
-          "Center": "0,6.355923,0.9341812",
+          "Center": "0,-0.9669285,0.8689022",
           "Friction": null,
           "IsTrigger": true,
           "OnComponentDestroy": null,
@@ -1719,7 +1719,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
-          "Scale": "50,37.29025,51.86859",
+          "Scale": "50,51.93595,51.73824",
           "Static": false,
           "Surface": null,
           "SurfaceVelocity": "0,0,0"
