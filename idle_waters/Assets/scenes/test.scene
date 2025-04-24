@@ -28,88 +28,6 @@
       ]
     },
     {
-      "__guid": "63cdf12b-985a-42ea-9f97-82db511e199e",
-      "Flags": 0,
-      "Name": "water",
-      "Position": "750.0646,-26.11694,-12.19081",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Ocean",
-          "__guid": "1be5c5b1-48b0-423c-aa49-b8fd87a40b88",
-          "depth": 500,
-          "diffuseReflectance": "1,1,1,0",
-          "enableLengthScale0": true,
-          "enableLengthScale1": true,
-          "enableLengthScale2": true,
-          "fresnelBias": 0,
-          "fresnelShininess": 5,
-          "fresnelStrength": 0.3,
-          "lengthScale0": 250,
-          "lengthScale1": 100,
-          "lengthScale2": 10,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "planeLength": 1000,
-          "planeResolution": 1000,
-          "recalculateInitials": true,
-          "secondSpectrumSettings": {
-            "scale": 0.1,
-            "windSpeed": 2,
-            "windDirection": 30,
-            "fetch": 1000,
-            "spreadBlend": 0,
-            "peakEnhancement": 1,
-            "shortWavesFade": 0.01
-          },
-          "seed": 12345,
-          "spectrumSettings": {
-            "scale": 0.6,
-            "windSpeed": 1,
-            "windDirection": 20,
-            "fetch": 100000,
-            "spreadBlend": 0.75,
-            "peakEnhancement": 3,
-            "shortWavesFade": 0.05
-          },
-          "specularReflectance": "1,1,1,0",
-          "Sun": {
-            "_type": "gameobject",
-            "go": "64dcb592-f89f-4507-a7e2-407223733738"
-          },
-          "timeScale": 1,
-          "waterColor": "0,0.1,0.16,1"
-        },
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "836c8393-9f18-4b9d-964d-4b16d97ff6a7",
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Model": null,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        }
-      ]
-    },
-    {
       "__guid": "ebff15db-b2f9-44f5-86b1-41e348472476",
       "Flags": 0,
       "Name": "Camera",
@@ -1672,72 +1590,6 @@
       ]
     },
     {
-      "__guid": "b2100815-bedc-4472-865e-4f11bbb87bff",
-      "Flags": 0,
-      "Name": "Cube",
-      "Position": "980.0171,-9.880615,-653.0989",
-      "Scale": "29.1382,23.05056,24.26759",
-      "Tags": "water",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "965ef03a-e4b9-4d88-a716-95c381cc2137",
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "MaterialGroup": null,
-          "MaterialOverride": "materials/water/water_pond_a.vmat",
-          "Model": "models/dev/box.vmdl",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "0,0.09804,0.15686,1"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "47ac7758-ff3c-4e60-ba03-32bb3ce01cd4",
-          "Center": "0,-0.9669285,0.8689022",
-          "Friction": null,
-          "IsTrigger": true,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "Scale": "50,51.93595,51.73824",
-          "Static": false,
-          "Surface": null,
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "IdleWaters.FishingSpot",
-          "__guid": "a0830743-be5c-4060-95ed-45d0a175ca90",
-          "CastRadius": 1500,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        }
-      ]
-    },
-    {
       "__guid": "2d794296-4be4-4d0e-8281-1bce4704da67",
       "Flags": 0,
       "Name": "killbox",
@@ -1820,6 +1672,194 @@
           "TargetTags": [
             "player"
           ]
+        }
+      ]
+    },
+    {
+      "__guid": "b2100815-bedc-4472-865e-4f11bbb87bff",
+      "Flags": 0,
+      "Name": "WaterHitbox",
+      "Position": "980.0171,-123.2214,-724.3264",
+      "Scale": "29.1382,23.05056,24.26759",
+      "Tags": "water",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "965ef03a-e4b9-4d88-a716-95c381cc2137",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/water/water_pond_a.vmat",
+          "Model": "models/dev/box.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0,0.09804,0.15686,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "47ac7758-ff3c-4e60-ba03-32bb3ce01cd4",
+          "Center": "0,-0.9669285,0.8689022",
+          "Friction": null,
+          "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Scale": "50,51.93595,51.73824",
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "IdleWaters.FishingSpot",
+          "__guid": "a0830743-be5c-4060-95ed-45d0a175ca90",
+          "CastRadius": 1500,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "63cdf12b-985a-42ea-9f97-82db511e199e",
+          "Flags": 0,
+          "Name": "water",
+          "Position": "-7.891788,4.212677,25.06744",
+          "Scale": "0.03431921,0.04338289,0.04120722",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Ocean",
+              "__guid": "1be5c5b1-48b0-423c-aa49-b8fd87a40b88",
+              "depth": 500,
+              "diffuseReflectance": "1,1,1,0",
+              "enableLengthScale0": true,
+              "enableLengthScale1": true,
+              "enableLengthScale2": true,
+              "fresnelBias": 0,
+              "fresnelShininess": 5,
+              "fresnelStrength": 0.3,
+              "lengthScale0": 250,
+              "lengthScale1": 100,
+              "lengthScale2": 10,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "planeLength": 1000,
+              "planeResolution": 1000,
+              "recalculateInitials": true,
+              "secondSpectrumSettings": {
+                "scale": 0.1,
+                "windSpeed": 2,
+                "windDirection": 30,
+                "fetch": 1000,
+                "spreadBlend": 0,
+                "peakEnhancement": 1,
+                "shortWavesFade": 0.01
+              },
+              "seed": 12345,
+              "spectrumSettings": {
+                "scale": 0.6,
+                "windSpeed": 1,
+                "windDirection": 20,
+                "fetch": 100000,
+                "spreadBlend": 0.75,
+                "peakEnhancement": 3,
+                "shortWavesFade": 0.05
+              },
+              "specularReflectance": "1,1,1,0",
+              "Sun": {
+                "_type": "gameobject",
+                "go": "64dcb592-f89f-4507-a7e2-407223733738"
+              },
+              "timeScale": 1,
+              "waterColor": "0,0.1,0.16,1"
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "836c8393-9f18-4b9d-964d-4b16d97ff6a7",
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Model": null,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__guid": "c2833b49-223d-4fe6-818a-c614342ae531",
+      "Flags": 0,
+      "Name": "SpawnArea",
+      "Position": "-11518.79,-6576.006,-1329.189",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "5293a12e-90e9-48ff-98a3-6540ed10001e",
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "EnableCollision": true,
+          "Friction": null,
+          "IsTrigger": false,
+          "MaterialOverride": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "On",
+          "Static": true,
+          "Storage": "spawnarea.terrain",
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0",
+          "TerrainHeight": 10000,
+          "TerrainSize": 20000
         }
       ]
     }
