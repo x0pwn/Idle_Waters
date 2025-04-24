@@ -1749,6 +1749,7 @@
         {
           "__type": "Sandbox.ModelRenderer",
           "__guid": "fd6bd62a-1b94-468e-9d63-5bb8d8acf8a5",
+          "__enabled": false,
           "BodyGroups": 18446744073709551615,
           "CreateAttachments": false,
           "MaterialGroup": null,
