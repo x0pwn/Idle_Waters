@@ -179,16 +179,6 @@
         "OnComponentUpdate": null
       },
       {
-        "__type": "InventoryHud",
-        "__guid": "1b52d858-2370-48ed-b986-6e9c2fe8903b",
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null
-      },
-      {
         "__type": "ClothingDresser",
         "__guid": "84a892cd-c888-4780-86a8-c379fe92f64f",
         "OnComponentDestroy": null,

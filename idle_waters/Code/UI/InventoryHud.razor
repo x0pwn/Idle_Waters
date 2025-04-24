@@ -45,10 +45,34 @@
 
 @code {
     private bool Visible;
+    private InventoryComponent _inventory;
 
-    // Shortcut to the player's inventory
+    // Get the inventory for the local player
     private InventoryComponent Inventory
-        => GameObject.Components.Get<InventoryComponent>();
+    {
+        get
+        {
+            if (_inventory == null)
+            {
+                var inventories = Scene.GetAllComponents<InventoryComponent>();
+                
+                // Find the inventory owned by the local player
+                _inventory = inventories.FirstOrDefault(inv => 
+                    inv.GameObject.Network.OwnerId == Connection.Local.Id);
+                
+                if (_inventory != null)
+                {
+                    Log.Info($"Found inventory for player: {Connection.Local.DisplayName}");
+                }
+                else
+                {
+                    Log.Warning("Could not find an inventory for the local player!");
+                }
+            }
+            
+            return _inventory;
+        }
+    }
 
     protected override void OnUpdate()
     {
@@ -59,6 +83,24 @@
             
             if (Visible)
             {
+                // Reset inventory reference to make sure we get the latest one
+                _inventory = null;
+                
+                // Log inventory details for debugging
+                var inv = Inventory;
+                if (inv != null)
+                {
+                    Log.Info($"INVENTORY - Player: {Connection.Local.DisplayName}, Items: {inv.Items.Count}");
+                    foreach (var item in inv.Items)
+                    {
+                        var fishData = item.Components.Get<FishData>();
+                        if (fishData != null)
+                        {
+                            Log.Info($"  - {fishData.FishName} (${fishData.FishValue})");
+                        }
+                    }
+                }
+                
                 // Force cursor to be visible through code
                 Panel.Style.PointerEvents = PointerEvents.All;
             }

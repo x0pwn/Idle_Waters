@@ -26,7 +26,7 @@ public sealed class HudInitializer : Component
         hudObject.Components.Create<PlayerMoneyHud>();
 
         // <-- Add your inventory panel here
-        //hudObject.Components.Create<InventoryHud>();
+        hudObject.Components.Create<InventoryHud>();
     }
 
     protected override void OnDestroy()
