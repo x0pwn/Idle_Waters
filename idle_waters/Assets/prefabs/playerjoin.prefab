@@ -3,6 +3,7 @@
     "__guid": "fe55e525-481d-44b6-905c-2132ff560743",
     "Flags": 0,
     "Name": "playerjoin",
+    "Tags": "player",
     "Enabled": true,
     "NetworkMode": 1,
     "Components": [
@@ -21,7 +22,7 @@
           "go": "fe55e525-481d-44b6-905c-2132ff560743",
           "component_type": "Rigidbody"
         },
-        "BodyCollisionTags": null,
+        "BodyCollisionTags": "player",
         "BodyHeight": 72,
         "BodyMass": 500,
         "BodyRadius": 16,
