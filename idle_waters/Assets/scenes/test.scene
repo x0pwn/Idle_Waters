@@ -1706,7 +1706,7 @@
         {
           "__type": "Sandbox.BoxCollider",
           "__guid": "47ac7758-ff3c-4e60-ba03-32bb3ce01cd4",
-          "Center": "0,0,0.9341812",
+          "Center": "0,6.355923,0.9341812",
           "Friction": null,
           "IsTrigger": true,
           "OnComponentDestroy": null,
@@ -1719,7 +1719,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
-          "Scale": "50,50,51.86859",
+          "Scale": "50,37.29025,51.86859",
           "Static": false,
           "Surface": null,
           "SurfaceVelocity": "0,0,0"
@@ -1734,6 +1734,91 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null
+        }
+      ]
+    },
+    {
+      "__guid": "2d794296-4be4-4d0e-8281-1bce4704da67",
+      "Flags": 0,
+      "Name": "killbox",
+      "Position": "-2390.878,594.3739,-2720",
+      "Scale": "-4385.436,2519.122,7.625453",
+      "Tags": "kill",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "fd6bd62a-1b94-468e-9d63-5bb8d8acf8a5",
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Model": "models/dev/box.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,0,0,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "24ae60bb-e4e5-4151-86f3-a088a1ae63da",
+          "Center": "0,0,0",
+          "Friction": null,
+          "IsTrigger": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": {
+            "__version": 9,
+            "__guid": "03e682e0-789e-4166-8912-93cc3d2883ed",
+            "__changeId": 2,
+            "UserData": {
+              "Title": "On Collider Enter"
+            },
+            "Variables": [],
+            "Nodes": [
+              {
+                "Id": 0,
+                "Type": "input"
+              }
+            ],
+            "Links": []
+          },
+          "OnTriggerExit": null,
+          "Scale": "-4385.436,2519.122,7.625",
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "KillBox",
+          "__guid": "3694a5cb-6247-44d7-a300-a267b47ae25d",
+          "DestroyObjects": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ResetPosition": true,
+          "TargetTags": [
+            "player"
+          ]
         }
       ]
     }
