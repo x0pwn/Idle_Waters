@@ -397,21 +397,27 @@
               },
               {
                 "__type": "IdleWaters.FishingLine",
-                "__guid": "8fefed1c-e0ba-426b-9b90-238a80dec06f",
+                "__guid": "c3145aa5-76c2-4920-9c18-d1df6a09bd23",
                 "BobAmount": 0.3,
-                "CastArcHeight": 20,
-                "CastDistance": 1.5,
-                "CastDuration": 1.0000001,
+                "CastArcHeight": 40,
+                "CastDistance": 5,
+                "CastDuration": 1,
+                "InitialBackSwingHeight": 0,
                 "LineColor": "1,1,1,1",
                 "LineSag": 0.5,
                 "LineSegments": 10,
-                "LineWidth": 0.5,
+                "LineWidth": 1,
+                "MaxCastDistance": 500,
                 "OnComponentDestroy": null,
                 "OnComponentDisabled": null,
                 "OnComponentEnabled": null,
                 "OnComponentFixedUpdate": null,
                 "OnComponentStart": null,
                 "OnComponentUpdate": null,
+                "PlayerEyes": {
+                  "_type": "gameobject",
+                  "go": "1e88aeee-6393-4c6a-b5ff-ac9b1b7a302f"
+                },
                 "RodTip": {
                   "_type": "gameobject",
                   "go": "af32f590-453a-44b1-af54-e0ec95365a22"

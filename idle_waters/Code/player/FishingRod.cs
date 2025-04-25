@@ -41,14 +41,13 @@ namespace IdleWaters
 
                 if (fishingLine != null && RodTip != null)
                 {
-                    var forward = Transform.Rotation.Forward;
-                    var tempTarget = Transform.Position + forward * 100f;
-                    Log.Info("FishingRod: Calling StartCasting with target: " + tempTarget);
-                    fishingLine.StartCasting(tempTarget);
+                    // Use the CastWherePlayerLooking method instead of StartCasting
+                    Log.Info("FishingRod: Calling CastWherePlayerLooking");
+                    fishingLine.CastWherePlayerLooking();
                 }
                 else
                 {
-                    Log.Info("FishingRod: Cannot call StartCasting - fishingLine: " +
+                    Log.Info("FishingRod: Cannot cast - fishingLine: " +
                              (fishingLine == null ? "null" : "set") +
                              ", RodTip: " + (RodTip == null ? "null" : "set"));
                 }
