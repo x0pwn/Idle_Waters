@@ -2,6 +2,7 @@ using Sandbox;
 using Sandbox.Physics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdleWaters;
 
@@ -22,6 +23,10 @@ public sealed class FishingLine : Component
     [Property] public float MaxCastDistance { get; set; } = 1000f;
     [Property] public float InitialBackSwingHeight { get; set; } = 30f;
     [Property] public GameObject PlayerEyes { get; set; }
+    [Property] public float RodBendAmount { get; set; } = 20.0f;
+    [Property] public float RodBendSpeed { get; set; } = 10.0f;
+    [Property] public float RodReturnSpeed { get; set; } = 5.0f;
+    [Property] public float RodFlexibility { get; set; } = 5.0f;
 
     private LineRenderer lineRenderer;
     private GameObject targetPoint;
@@ -34,6 +39,9 @@ public sealed class FishingLine : Component
     private float bobTimer = 0f;
     private bool lineInWater = false;
     private List<GameObject> linePoints = new();
+    private Angles originalRodRotation;
+    private Angles currentRodRotation;
+    private float rodBendAngle = 0f;
 
     public void CastWherePlayerLooking()
     {
@@ -61,8 +69,7 @@ public sealed class FishingLine : Component
             forward = player.GameObject.Transform.Rotation.Forward;
         }
         
-        // Force Y component to ensure downward cast
-        forward.y = Math.Min(forward.y, 0.2f);
+        forward = forward.Normal;
         
         Vector3 castStart = RodTip.Transform.Position;
         
@@ -85,7 +92,6 @@ public sealed class FishingLine : Component
                 
             Vector3 toTarget = (targetPos - castStart).Normal;
             
-            // Ensure target is in front of player
             if (Vector3.Dot(playerForward, toTarget) < 0.2f)
             {
                 Log.Warning("Target was behind player, forcing to front");
@@ -110,13 +116,26 @@ public sealed class FishingLine : Component
         castStartPos = RodTip.Transform.Position;
         
         var direction = (target - castStartPos).Normal;
+        var horizontalDirection = direction.WithY(0).Normal;
         var horizontalDistance = (target - castStartPos).WithY(0).Length * CastDistance;
+        float verticalFactor = MathF.Max(0.2f, 1.0f + direction.y);
         
-        castEndPos = castStartPos + direction * horizontalDistance;
-        castEndPos.y = Math.Min(target.y, 1.0f); // Keep at water level or lower
+        castEndPos = castStartPos + horizontalDirection * horizontalDistance;
         
-        castPeakPos = Vector3.Lerp(castStartPos, castEndPos, 0.4f);
-        castPeakPos.y += CastArcHeight;
+        float yTarget = target.y;
+        if (direction.y < 0)
+        {
+            castEndPos.y = MathF.Min(yTarget, 1.0f);
+        }
+        else
+        {
+            float heightOffset = direction.y * horizontalDistance * 0.3f;
+            castEndPos.y = MathF.Max(yTarget, castStartPos.y + heightOffset);
+        }
+        
+        float peakOffset = direction.y > 0 ? 0.6f : 0.4f;
+        castPeakPos = Vector3.Lerp(castStartPos, castEndPos, peakOffset);
+        castPeakPos.y += CastArcHeight * verticalFactor;
         
         targetPoint.Transform.Position = castStartPos;
         
@@ -137,39 +156,61 @@ public sealed class FishingLine : Component
     {
         Vector3 currentPos;
         
-        // 3-stage cast animation: backswing, forward swing, line flying out
         if (progress < 0.2f) 
         {
-            // Backswing
             float backswingProgress = progress / 0.2f;
             
-            Vector3 backOffset = (castStartPos - castEndPos).Normal * 10f;
+            Vector3 castDir = (castEndPos - castStartPos).Normal;
+            Vector3 backDirection = -castDir;
+            
+            Vector3 rightVec = Vector3.Cross(Vector3.Up, castDir).Normal;
+            
+            Vector3 backOffset = backDirection * 10f;
             backOffset.y += InitialBackSwingHeight * backswingProgress;
+            
+            backOffset += rightVec * backswingProgress * 5f;
             
             currentPos = castStartPos + backOffset * MathF.Sin(backswingProgress * MathF.PI);
         }
         else if (progress < 0.6f)
         {
-            // Forward swing with high arc
             float forwardProgress = (progress - 0.2f) / 0.4f;
             
-            Vector3 start = castStartPos; 
-            Vector3 peak = castPeakPos;
+            Vector3 start = castStartPos;
             Vector3 end = castEndPos;
             
-            currentPos = BezierPoint(start, peak, peak, end, forwardProgress);
+            Vector3 castDir2 = (castEndPos - castStartPos).Normal;
+            float heightFactor = 1.0f + MathF.Max(0, castDir2.y);
+            
+            Vector3 control1 = Vector3.Lerp(start, castPeakPos, 0.7f);
+            Vector3 control2 = Vector3.Lerp(castPeakPos, end, 0.3f);
+            
+            currentPos = BezierPoint(start, control1, control2, end, forwardProgress);
         }
         else
         {
-            // Line flying out and settling
             float flyProgress = (progress - 0.6f) / 0.4f;
             
-            float downArc = MathF.Sin(flyProgress * MathF.PI) * 5f;
+            Vector3 castDir3 = (castEndPos - castStartPos).Normal;
+            
+            float verticalArc;
+            
+            if (castDir3.y >= 0)
+            {
+                verticalArc = -MathF.Sin(flyProgress * MathF.PI) * 15f * flyProgress * flyProgress;
+            }
+            else
+            {
+                verticalArc = -MathF.Sin(flyProgress * MathF.PI) * 5f * flyProgress;
+            }
+            
             currentPos = Vector3.Lerp(castPeakPos, castEndPos, flyProgress);
-            currentPos.y -= downArc;
+            currentPos.y += verticalArc;
+            
+            float horizontalDamping = 1.0f - (flyProgress * flyProgress * 0.3f);
+            currentPos = Vector3.Lerp(currentPos, castEndPos, 1.0f - horizontalDamping);
         }
         
-        // Add slight horizontal variance for realism
         Vector3 castDirection = (castEndPos - castStartPos).Normal;
         Vector3 right = Vector3.Cross(Vector3.Up, castDirection).Normal;
         float horizontalVariance = MathF.Sin(progress * MathF.PI * 2.0f) * 1.0f * progress;
@@ -227,6 +268,11 @@ public sealed class FishingLine : Component
             point.Network.Spawn();
             linePoints.Add(point);
         }
+        
+        if (RodTip != null)
+            originalRodRotation = RodTip.Transform.Rotation.Angles();
+        
+        currentRodRotation = originalRodRotation;
     }
 
     protected override void OnUpdate()
@@ -264,6 +310,43 @@ public sealed class FishingLine : Component
         }
         
         UpdateLine();
+        UpdateRodBending();
+    }
+
+    private void UpdateRodBending()
+    {
+        if (RodTip == null) return;
+        
+        if (isAnimatingCast)
+        {
+            float progress = (Time.Now - castStartTime) / CastDuration;
+            
+            if (progress < 0.2f)
+            {
+                float bendFactor = progress / 0.2f;
+                rodBendAngle = -RodBendAmount * MathF.Sin(bendFactor * MathF.PI);
+            }
+            else if (progress < 0.4f)
+            {
+                float bendFactor = (progress - 0.2f) / 0.2f;
+                rodBendAngle = RodBendAmount * MathF.Sin(bendFactor * MathF.PI);
+            }
+            else
+            {
+                float bendFactor = (progress - 0.4f) / 0.6f;
+                rodBendAngle = RodBendAmount * (1 - bendFactor) * 0.5f * MathF.Cos(bendFactor * MathF.PI * 4);
+            }
+        }
+        else
+        {
+            rodBendAngle = rodBendAngle * (1.0f - Time.Delta * RodReturnSpeed);
+        }
+        
+        Angles targetAngles = originalRodRotation;
+        targetAngles.pitch += rodBendAngle;
+        
+        currentRodRotation = Angles.Lerp(currentRodRotation, targetAngles, Time.Delta * RodBendSpeed);
+        RodTip.Transform.Rotation = Rotation.From(currentRodRotation);
     }
 
     private void UpdateLine()
@@ -278,14 +361,36 @@ public sealed class FishingLine : Component
             
             var lineGameObjects = new List<GameObject> { RodTip };
             
+            Vector3 lineDirection = (end - start).Normal;
+            Vector3 gravity = Vector3.Down;
+            
             for (int i = 0; i < linePoints.Count; i++)
             {
                 float t = (i + 1) / (float)LineSegments;
+                
                 Vector3 point = Vector3.Lerp(start, end, t);
                 
-                float sagFactor = (lineInWater && !isAnimatingCast) ? LineSag : 0.2f;
+                float sagFactor;
+                
+                if (lineInWater && !isAnimatingCast)
+                {
+                    sagFactor = LineSag * (1.0f + MathF.Sin(t * MathF.PI * 2 + bobTimer) * 0.2f);
+                }
+                else if (isAnimatingCast)
+                {
+                    sagFactor = 0.1f + 0.1f * t;
+                }
+                else
+                {
+                    sagFactor = LineSag * 0.7f;
+                }
+                
                 float curvature = MathF.Sin(t * MathF.PI) * sagFactor * distance * 0.1f;
-                point.y -= curvature;
+                
+                float gravityEffect = Vector3.Dot(-lineDirection, gravity) * 0.5f + 0.5f;
+                Vector3 sagDirection = Vector3.Lerp(gravity, -lineDirection, 0.3f).Normal;
+                
+                point += sagDirection * curvature * gravityEffect;
                 
                 linePoints[i].Transform.Position = point;
                 lineGameObjects.Add(linePoints[i]);
