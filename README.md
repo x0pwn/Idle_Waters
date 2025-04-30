@@ -46,4 +46,4 @@ That's it! Enjoy fishing with friends in **Idle Waters**!
 
 - **0pwn** -- Lead 
 - **Mr. Psycho** -- Developer / Mapper
-- **Predente** -- Modeler
+- **Predente** -- Modeler 
